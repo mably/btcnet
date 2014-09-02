@@ -28,7 +28,7 @@
 //          "log"
 //
 //          "github.com/mably/btcnet"
-//          "github.com/conformal/btcutil"
+//          "github.com/mably/btcutil"
 //  )
 //
 //  var testnet = flag.Bool("testnet", false, "operate on the testnet Bitcoin network")
