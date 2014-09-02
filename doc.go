@@ -27,7 +27,7 @@
 //          "fmt"
 //          "log"
 //
-//          "github.com/conformal/btcnet"
+//          "github.com/mably/btcnet"
 //          "github.com/conformal/btcutil"
 //  )
 //
