@@ -58,6 +58,7 @@ type Params struct {
 
 	// Chain parameters
 	GenesisBlock           *btcwire.MsgBlock
+	GenesisMeta            *btcwire.Meta
 	GenesisHash            *btcwire.ShaHash
 	PowLimit               *big.Int
 	PowLimitBits           uint32
@@ -103,6 +104,7 @@ var MainNetParams = Params{
 	// Chain parameters
 	GenesisBlock:           &genesisBlock,
 	GenesisHash:            &genesisHash,
+	GenesisMeta:            &genesisMeta,
 	PowLimit:               mainPowLimit,
 	PowLimitBits:           0x1d00ffff,
 	SubsidyHalvingInterval: 210000,
@@ -156,6 +158,7 @@ var RegressionNetParams = Params{
 	// Chain parameters
 	GenesisBlock:           &regTestGenesisBlock,
 	GenesisHash:            &regTestGenesisHash,
+	GenesisMeta:            &genesisMeta,
 	PowLimit:               regressionPowLimit,
 	PowLimitBits:           0x207fffff,
 	SubsidyHalvingInterval: 150,
@@ -205,6 +208,7 @@ var TestNet3Params = Params{
 	// Chain parameters
 	GenesisBlock:           &testNet3GenesisBlock,
 	GenesisHash:            &testNet3GenesisHash,
+	GenesisMeta:            &genesisMeta,
 	PowLimit:               testNet3PowLimit,
 	PowLimitBits:           0x1d00ffff,
 	SubsidyHalvingInterval: 210000,
@@ -260,6 +264,7 @@ var SimNetParams = Params{
 	// Chain parameters
 	GenesisBlock:           &simNetGenesisBlock,
 	GenesisHash:            &simNetGenesisHash,
+	GenesisMeta:            &genesisMeta,
 	PowLimit:               simNetPowLimit,
 	PowLimitBits:           0x207fffff,
 	SubsidyHalvingInterval: 210000,
