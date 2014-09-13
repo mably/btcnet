@@ -80,8 +80,9 @@ var genesisBlock = btcwire.MsgBlock{
 }
 
 var genesisMeta = btcwire.Meta{
-	StakeModifier:  0,
-	Flags:          uint32(1 << 2),
+	StakeModifier:         0,
+	StakeModifierChecksum: 0x0e00670b,
+	Flags:                 6,
 }
 
 // regTestGenesisHash is the hash of the first block in the block chain for the
