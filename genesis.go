@@ -5,6 +5,7 @@
 package btcnet
 
 import (
+	"math/big"
 	"time"
 
 	"github.com/mably/btcwire"
@@ -83,6 +84,7 @@ var genesisMeta = btcwire.Meta{
 	StakeModifier:         0,
 	StakeModifierChecksum: 0x0e00670b,
 	Flags:                 6,
+	ChainTrust:            *big.NewInt(1),
 }
 
 // regTestGenesisHash is the hash of the first block in the block chain for the
