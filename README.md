@@ -1,10 +1,11 @@
 btcnet
 ======
 
-[![Build Status](https://travis-ci.org/conformal/btcnet.png?branch=master)]
-(https://travis-ci.org/conformal/btcnet) [![Coverage Status]
-(https://coveralls.io/repos/conformal/btcnet/badge.png?branch=master)]
-(https://coveralls.io/r/conformal/btcnet?branch=master)
+[![Build Status](https://travis-ci.org/mably/btcnet.png?branch=master)]
+(https://travis-ci.org/mably/btcnet) [![Coverage Status]
+(https://coveralls.io/repos/mably/btcnet/badge.png?branch=master)]
+(https://coveralls.io/r/mably/btcnet?branch=master)
+[![tip for next commit](http://peer4commit.com/projects/130.svg)](http://peer4commit.com/projects/130)
 
 Package btcnet defines the network parameters for the three standard Bitcoin 
 networks and provides the ability for callers to define their own custom 
@@ -27,8 +28,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/conformal/btcnet"
-	"github.com/conformal/btcutil"
+	"github.com/mably/btcnet"
+	"github.com/mably/btcutil"
 )
 
 var testnet = flag.Bool("testnet", false, "operate on the testnet Bitcoin network")
@@ -58,21 +59,21 @@ func main() {
 
 ## Documentation
 
-[![GoDoc](https://godoc.org/github.com/conformal/btcnet?status.png)]
-(http://godoc.org/github.com/conformal/btcnet)
+[![GoDoc](https://godoc.org/github.com/mably/btcnet?status.png)]
+(http://godoc.org/github.com/mably/btcnet)
 
 Full `go doc` style documentation for the project can be viewed online without
 installing this package by using the GoDoc site
-[here](http://godoc.org/github.com/conformal/btcnet).
+[here](http://godoc.org/github.com/mably/btcnet).
 
 You can also view the documentation locally once the package is installed with
 the `godoc` tool by running `godoc -http=":6060"` and pointing your browser to
-http://localhost:6060/pkg/github.com/conformal/btcnet
+http://localhost:6060/pkg/github.com/mably/btcnet
 
 ## Installation
 
 ```bash
-$ go get github.com/conformal/btcnet
+$ go get github.com/mably/btcnet
 ```
 
 ## GPG Verification Key
