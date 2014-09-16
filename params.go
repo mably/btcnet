@@ -68,6 +68,9 @@ type Params struct {
 	// Checkpoints ordered from oldest to newest.
 	Checkpoints []Checkpoint
 
+	// Peercoin
+	StakeModifierCheckpoints map[int64]uint32
+
 	// Reject version 1 blocks once a majority of the network has upgraded.
 	// This is part of BIP0034.
 	BlockV1RejectNumRequired uint64
@@ -115,6 +118,14 @@ var MainNetParams = Params{
 		{19080, newShaHashFromStr("000000000000bca54d9ac17881f94193fd6a270c1bb21c3bf0b37f588a40dbd7")},
 		{30583, newShaHashFromStr("d39d1481a7eecba48932ea5913be58ad3894c7ee6d5a8ba8abeb772c66a6696e")},
 		{99999, newShaHashFromStr("27fd5e1de16a4270eb8c68dee2754a64da6312c7c3a0e99a7e6776246be1ee3f")},
+	},
+
+	// Peercoin
+	StakeModifierCheckpoints: map[int64]uint32{
+		0:     uint32(0x0e00670b),
+		19080: uint32(0xad4e4d29),
+		30583: uint32(0xdc7bf136),
+		99999: uint32(0xf555cfd2),
 	},
 
 	// Reject version 1 blocks once a majority of the network has upgraded.
