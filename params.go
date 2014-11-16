@@ -11,6 +11,17 @@ import (
 	"github.com/mably/btcwire"
 )
 
+// Peercoin https://github.com/ppcoin/ppcoin/blob/v0.4.0ppc/src/main.cpp#L2230
+// if (fTestNet)
+// {
+// 	hashGenesisBlock = hashGenesisBlockTestNet;
+// 	bnProofOfWorkLimit = CBigNum(~uint256(0) >> 28);
+// 	nStakeMinAge = 60 * 60 * 24; // test net min age is 1 day
+// 	nCoinbaseMaturity = 60;
+// 	bnInitialHashTarget = CBigNum(~uint256(0) >> 29);
+// 	nModifierInterval = 60 * 20; // test net modifier interval is 20 minutes
+// }
+
 // These variables are the chain proof-of-work limit parameters for each default
 // network.
 var (
@@ -26,10 +37,10 @@ var (
 	// can have for the regression test network.  It is the value 2^255 - 1.
 	regressionPowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 255), bigOne)
 
-	// testNet3PowLimit is the highest proof of work value a Bitcoin block
+	// testNet3PowLimit is the highest proof of work value a Peercoin block
 	// can have for the test network (version 3).  It is the value
-	// 2^224 - 1.
-	testNet3PowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 224), bigOne)
+	// 2^228 - 1.
+	testNet3PowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 228), bigOne)
 
 	// simNetPowLimit is the highest proof of work value a Bitcoin block
 	// can have for the simulation test network.  It is the value 2^255 - 1.
@@ -93,6 +104,16 @@ type Params struct {
 	// BIP44 coin type used in the hierarchical deterministic path for
 	// address generation.
 	HDCoinType uint32
+
+	// Peercoin
+	StakeMinAge int64
+	// CoinbaseMaturity is the number of blocks required before newly
+	// mined bitcoins (coinbase transactions) can be spent.
+	CoinbaseMaturity      int64
+	InitialHashTargetBits uint32
+	// Modifier interval: time to elapse before new modifier is computed
+	ModifierInterval         int64
+	StakeModifierCheckpoints map[int64]uint32
 }
 
 // MainNetParams defines the network parameters for the main Bitcoin network.
@@ -134,9 +155,9 @@ var MainNetParams = Params{
 	RelayNonStdTxs: false,
 
 	// Address encoding magics
-	PubKeyHashAddrID: 0x37, // starts with P
-	ScriptHashAddrID: 0x75, // starts with p
-	PrivateKeyID:     0x37+0x80, //TODO starts with ? (uncompressed) or ? (compressed)
+	PubKeyHashAddrID: 0x37,        // starts with P
+	ScriptHashAddrID: 0x75,        // starts with p
+	PrivateKeyID:     0x37 + 0x80, //TODO starts with ? (uncompressed) or ? (compressed)
 
 	// BIP32 hierarchical deterministic extended key magics
 	HDPrivateKeyID: [4]byte{0x04, 0x88, 0xad, 0xe4}, // starts with xprv
@@ -145,6 +166,18 @@ var MainNetParams = Params{
 	// BIP44 coin type used in the hierarchical deterministic path for
 	// address generation.
 	HDCoinType: 0,
+
+	// Peercoin
+	StakeMinAge:           60 * 60 * 24 * 30, // minimum age for coin age
+	CoinbaseMaturity:      100,
+	InitialHashTargetBits: 0x1c00ffff,
+	ModifierInterval:      6 * 60 * 60, // Set to 6-hour for production network and 20-minute for test network
+	StakeModifierCheckpoints: map[int64]uint32{
+		0:     uint32(0x0e00670b),
+		19080: uint32(0xad4e4d29),
+		30583: uint32(0xdc7bf136),
+		99999: uint32(0xf555cfd2),
+	},
 }
 
 // RegressionNetParams defines the network parameters for the regression test
@@ -203,21 +236,19 @@ var RegressionNetParams = Params{
 var TestNet3Params = Params{
 	Name:        "testnet3",
 	Net:         btcwire.TestNet3,
-	DefaultPort: "18333",
+	DefaultPort: "9903",
 
 	// Chain parameters
 	GenesisBlock:           &testNet3GenesisBlock,
 	GenesisHash:            &testNet3GenesisHash,
 	GenesisMeta:            &genesisMeta,
 	PowLimit:               testNet3PowLimit,
-	PowLimitBits:           0x1d00ffff,
+	PowLimitBits:           0x1d07ffff,
 	SubsidyHalvingInterval: 210000,
 	ResetMinDifficulty:     true,
 
 	// Checkpoints ordered from oldest to newest.
-	Checkpoints: []Checkpoint{
-		{546, newShaHashFromStr("000000002a936ca763904c3c35fce2f3556c559c0214345d31b1bcebf76acb70")},
-	},
+	Checkpoints: []Checkpoint{},
 
 	// Reject version 1 blocks once a majority of the network has upgraded.
 	// 75% (75 / 100)
@@ -236,9 +267,9 @@ var TestNet3Params = Params{
 	RelayNonStdTxs: true,
 
 	// Address encoding magics
-	PubKeyHashAddrID: 0x6f, // starts with m or n
-	ScriptHashAddrID: 0xc4, // starts with 2
-	PrivateKeyID:     0xef, // starts with 9 (uncompressed) or c (compressed)
+	PubKeyHashAddrID: 0x6f,        // starts with m or n
+	ScriptHashAddrID: 0xc4,        // starts with 2
+	PrivateKeyID:     0x6f + 0x80, // TODO(kac-) starts with ? (uncompressed) or ? (compressed)
 
 	// BIP32 hierarchical deterministic extended key magics
 	HDPrivateKeyID: [4]byte{0x04, 0x35, 0x83, 0x94}, // starts with tprv
@@ -247,6 +278,13 @@ var TestNet3Params = Params{
 	// BIP44 coin type used in the hierarchical deterministic path for
 	// address generation.
 	HDCoinType: 1,
+
+	// Peercoin
+	StakeMinAge:              60 * 60 * 24, // test net min age is 1 day
+	CoinbaseMaturity:         60,
+	InitialHashTargetBits:    0x1d07ffff,
+	ModifierInterval:         60 * 20, // test net modifier interval is 20 minutes
+	StakeModifierCheckpoints: map[int64]uint32{},
 }
 
 // SimNetParams defines the network parameters for the simulation test Bitcoin
