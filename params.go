@@ -186,7 +186,7 @@ var MainNetParams = Params{
 var RegressionNetParams = Params{
 	Name:        "regtest",
 	Net:         btcwire.TestNet,
-	DefaultPort: "18444",
+	DefaultPort: "9905",
 
 	// Chain parameters
 	GenesisBlock:           &regTestGenesisBlock,
@@ -195,7 +195,7 @@ var RegressionNetParams = Params{
 	PowLimit:               regressionPowLimit,
 	PowLimitBits:           0x207fffff,
 	SubsidyHalvingInterval: 150,
-	ResetMinDifficulty:     true,
+	ResetMinDifficulty:     false,
 
 	// Checkpoints ordered from oldest to newest.
 	Checkpoints: nil,
@@ -228,6 +228,12 @@ var RegressionNetParams = Params{
 	// BIP44 coin type used in the hierarchical deterministic path for
 	// address generation.
 	HDCoinType: 1,
+
+	// Peercoin
+	StakeMinAge:           60 * 60 * 24 * 30, // minimum age for coin age
+	CoinbaseMaturity:      100,
+	InitialHashTargetBits: 0x207fffff,
+	ModifierInterval:      6 * 60 * 60,
 }
 
 // TestNet3Params defines the network parameters for the test Bitcoin network
@@ -245,7 +251,7 @@ var TestNet3Params = Params{
 	PowLimit:               testNet3PowLimit,
 	PowLimitBits:           0x1d07ffff,
 	SubsidyHalvingInterval: 210000,
-	ResetMinDifficulty:     true,
+	ResetMinDifficulty:     false,
 
 	// Checkpoints ordered from oldest to newest.
 	Checkpoints: []Checkpoint{},
