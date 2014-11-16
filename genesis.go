@@ -18,7 +18,7 @@ var genesisCoinbaseTx = btcwire.MsgTx{
 	Time:    time.Unix(0x502c59a2, 0),
 	TxIn: []*btcwire.TxIn{
 		{
-			PreviousOutpoint: btcwire.OutPoint{
+			PreviousOutPoint: btcwire.OutPoint{
 				Hash:  btcwire.ShaHash{},
 				Index: 0xffffffff,
 			},
