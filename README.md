@@ -1,10 +1,10 @@
 btcnet
 ======
 
-[![Build Status](https://travis-ci.org/mably/btcnet.png?branch=mably)]
+[![Build Status](https://travis-ci.org/mably/btcnet.png?branch=master)]
 (https://travis-ci.org/mably/btcnet) [![Coverage Status]
-(https://coveralls.io/repos/mably/btcnet/badge.png?branch=mably)]
-(https://coveralls.io/r/mably/btcnet?branch=mably)
+(https://coveralls.io/repos/mably/btcnet/badge.png?branch=master)]
+(https://coveralls.io/r/mably/btcnet?branch=master)
 [![tip for next commit](http://peer4commit.com/projects/130.svg)](http://peer4commit.com/projects/130)
 
 Package btcnet defines the network parameters for the three standard Bitcoin 
