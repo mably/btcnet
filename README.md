@@ -98,4 +98,5 @@ signature perform the following:
 
 ## License
 
-Package btcnet is licensed under the liberal ISC License.
+Package btcnet is licensed under the [copyfree](http://copyfree.org) ISC
+License.
